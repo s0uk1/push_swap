@@ -6,7 +6,7 @@
 /*   By: ssabbaji <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 14:27:05 by ssabbaji          #+#    #+#             */
-/*   Updated: 2022/05/09 16:29:11 by ssabbaji         ###   ########.fr       */
+/*   Updated: 2022/05/09 19:01:16 by ssabbaji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,25 @@ int	ft_isdigit(int c)
 		return (0);
 }
 
+int	check_dup(int num, int *num_list, int size)
+{
+	int		i;
+	int		check;
+
+	check = 0;
+	i = -1;
+	while (++i < size)
+	{
+		if (num_list[i] == num)
+		{
+			check++;
+			if (check > 1)
+				return (1);
+		}
+	}
+	return (0);
+}
+
 int	check_num(char *str)
 {
 	int	i;
@@ -41,7 +60,13 @@ int	check_num(char *str)
 	}
 }
 
-int valid_num(char **arg)
+void	error_msg(int fd, char *msg, int err_code)
+{
+	write(fd, msg, ft_strlen(msg));
+	exit(err_code);
+}
+
+int nbr_only(char **arg)
 {
 	int i;
 	
@@ -57,8 +82,8 @@ int valid_num(char **arg)
 int main(int argc, char **argv)
 {
 	if (argc < 3)
-		error_msg("Error");
-	if (!valid_num(argv + 1))
-		error_msg("Error");
+		return (0);
+	if (!nbr_only(argv + 1))
+		error_msg(2,"Error",1);
 
 }
