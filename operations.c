@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   operations.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ssabbaji <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/09 14:27:05 by ssabbaji          #+#    #+#             */
-/*   Updated: 2022/05/11 16:44:10 by ssabbaji         ###   ########.fr       */
+/*   Created: 2022/05/11 13:20:52 by ssabbaji          #+#    #+#             */
+/*   Updated: 2022/05/11 13:44:58 by ssabbaji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-typedef struct s_struct {
-	int	size;
-	int	arr_size;
-	int index;
-	int	*stack;
-	int	*arr;
-}	t_struct;
+#include "push_swap.h"
 
+void	swap_ab(int **arr)
+{
+	int tmp;
+
+	tmp = 0;``
+	if (arr)
+}

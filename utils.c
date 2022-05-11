@@ -6,9 +6,11 @@
 /*   By: ssabbaji <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 16:45:27 by ssabbaji          #+#    #+#             */
-/*   Updated: 2022/05/10 18:51:41 by ssabbaji         ###   ########.fr       */
+/*   Updated: 2022/05/11 16:44:28 by ssabbaji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "push_swap.h"
 
 int	arraymin_pos(int *list, int size)
 {
@@ -122,18 +124,3 @@ int	is_revsorted(int *stack, int size)
 	return (1);
 }
 
-int check_fordup(int *list, int n, int size)
-{
-	int i;
-	int dup;
-
-	i = -1;
-	j = 0;
-	while (++i < size)
-	{
-		j = i + 1;
-		if (list[i] == list[j])
-			return (1);
-	}
-	return (0);
-}
