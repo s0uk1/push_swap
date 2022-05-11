@@ -6,7 +6,7 @@
 /*   By: ssabbaji <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 16:45:27 by ssabbaji          #+#    #+#             */
-/*   Updated: 2022/05/11 16:44:28 by ssabbaji         ###   ########.fr       */
+/*   Updated: 2022/05/11 18:33:46 by ssabbaji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,3 +124,17 @@ int	is_revsorted(int *stack, int size)
 	return (1);
 }
 
+
+void	reverse_arr(int *arr, int first, int last)
+{
+	int	temp;
+	
+	temp  = 0;
+	if (first < last)
+	{
+		temp = arr[first];
+		arr[first] = arr[last];
+		arr[lastt] = temp;
+		reverse_arr(arr, first + 1, last - 1);
+	}
+}

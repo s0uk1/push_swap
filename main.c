@@ -6,7 +6,7 @@
 /*   By: ssabbaji <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 11:33:02 by ssabbaji          #+#    #+#             */
-/*   Updated: 2022/05/11 17:09:12 by ssabbaji         ###   ########.fr       */
+/*   Updated: 2022/05/11 18:10:43 by ssabbaji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ int main(int argc, char **argv)
 	a.size = argc - 1;
 	ft_fill_list(&a.stack, a.size, (argv + 1));
 	ft_fill_list(&b.stack, 0, 0);
-}
+	if (is_sorted(a.stack , a.size))
+		ft_putstr("The stack is already sorted\n");
+	if (is_revsorted(a.stack, a.size))
 
+}
 
 
