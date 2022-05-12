@@ -6,15 +6,12 @@
 /*   By: ssabbaji <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 14:27:05 by ssabbaji          #+#    #+#             */
-/*   Updated: 2022/05/11 16:44:10 by ssabbaji         ###   ########.fr       */
+/*   Updated: 2022/05/12 15:29:39 by ssabbaji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-typedef struct s_struct {
-	int	size;
-	int	arr_size;
-	int index;
-	int	*stack;
-	int	*arr;
-}	t_struct;
-
+typedef struct s_stack{
+	int value;
+	int	index;
+	struct s_stack *next;
+}	t_stack;

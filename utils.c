@@ -6,135 +6,100 @@
 /*   By: ssabbaji <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 16:45:27 by ssabbaji          #+#    #+#             */
-/*   Updated: 2022/05/11 18:33:46 by ssabbaji         ###   ########.fr       */
+/*   Updated: 2022/05/12 18:43:27 by ssabbaji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	arraymin_pos(int *list, int size)
+int	is_sorted(t_node *stack_a)
 {
-	int i;
-	int j;
-	int pos;
+	int	i;
 
-	i = -1;
-	pos = 0;
-	j = list[0];
-	while (++i < size)
+	i = 0;
+	if (!stack_a)
+		return (1);
+	while (stack_a->next)
 	{
-		if (j > list[i])
-			pos = i;
+		if (stack_a->val > stack_a->next->val)
+				return (0);
+		stack_a = stack_a->next;
 	}
-	return (pos);
+	return (1);
 }
 
-int arraymax_pos(int *list, int size)
+t_stack *allocate_node(t_stack **node)
 {
-	int i;
-	int j;
-	int pos;
+	*node = malloc(sizeof(t_stack));
+	if (!*node)
+		return (NULL);
+	return (*node);
+}
 
-	i = -1;
-	pos = 0;
-	j = list[0];
-	while (++i < size)
+void	new_node(t_stack **node, int val)
+{
+	t_stack	*new;
+	t_stack *tmp;
+	
+	if (!*node)
 	{
-		if (j < list[i])
+		node = allocate_node(node);
+		(*node)->next = NULL;
+		(*node)->val = val;
+	}
+	tmp = *node;
+	while (tmp->next != NULL)
+	{
+		
+	}
+}
+
+void	new_stack(t_stack **a, int *num_list)
+{
+	int	i;
+	t_stack	*save;
+	t_stack *save_clone;
+
+	i = 0;
+	while (arguments[i])
+	{
+		*a = stack_addback(*a, num_list[i]);
+		i++;
+	}
+	save = *a;
+	while (save)
+	{
+		save_clone = *a;
+		while (save_clone)
 		{
-			j = list[i];
-			pos = i;
+			if (save->data > save_clone->data)
+				save_clone->index++;
+			save_clone = save_clone->next;
 		}
+		save = save->next;
 	}
-	return (pos);
 }
 
-int	arrmax(int *list, int size)
+t_stack *stack_addback(t_stack *stack, int val)
 {
-	int n;
-	int i;
+	t_stack *node;
+	t_stack *stack_save;
 
-	i = -1;
-	n = arr[0];
-	while (++i < size)
-	{
-		if (n < list[i])
-			n = list[i];
-	}
-	return (n);
+	node = new_node(val);
+	if (stack == NULL)
+		return (node);
+	stack_save = stack;
+	while (stack_save->next != NULL)
+		stack_save = stack_save->next;
+	stack_save->next = node;
+	node->index = 0;
+	return (stack);
 }
 
-int	arrmin(int *list, int size)
+t_stack	*new_node(int val)
 {
-	int n;
-	int i;
-
-	i = -1;
-	n = arr[0];
-	while (++i < size)
-	{
-		if (n > list[i])
-			n = list[i];
-	}
-	return (n);
-}
-
-int	get_pos(int *list, int n, int size)
-{
-	int i;
-	int index;
-	
-	i = -1;
-	while (++i < size)
-	{
-		if (n == list[i])
-			index = i;
-	}	
-	return (index);
-}
-
-int	is_sorted(int *stack, int size)
-{
-	int i;
-
-	i = 0;
-	while(i < size - 1)
-	{
-		if (stack[i] < stack[i + 1])
-			i++;
-		else 
-			return (0);
-	}
-	return (1);
-}
-
-
-int	is_revsorted(int *stack, int size)
-{
-	int i;
-
-	i = 0;
-	while(i < size - 1)
-	{
-		if (stack[i] > stack[i + 1])
-			i++;
-		else 
-			return (0);
-	}
-	return (1);
-}
-
-
-void	reverse_arr(int *arr, int first, int last)
-{
-	int	temp;
-	
-	temp  = 0;
-	if (first < last)
-	{
-		temp = arr[first];
-		arr[first] = arr[last];
-		arr[lastt] = temp;
-		reverse_arr(arr, first + 1, last - 1);
-	}
+	t_stack *node;
+	node = allocate_node(&node);
+	node->val = val;
+	node->index = 0;
 }

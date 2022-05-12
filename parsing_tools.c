@@ -6,7 +6,7 @@
 /*   By: ssabbaji <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 16:44:38 by ssabbaji          #+#    #+#             */
-/*   Updated: 2022/05/11 16:55:40 by ssabbaji         ###   ########.fr       */
+/*   Updated: 2022/05/11 20:23:09 by ssabbaji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,36 +47,6 @@ int	nbr_only(char **arr)
 	while (arr[++i])
 		if (check_num(arr[i]) || (atoi(arr[i]) == -1
 				&& strcmp(arr[i], "-1")))
-			return (1);
-	return (0);
-}
-
-int	check_fordup(int *arr, int n, int size)
-{
-	int	i;
-	int	dup;
-
-	i = -1;
-	dup = 0;
-	while (++i < size)
-	{
-		if (arr[i] == n)
-		{
-			if (dup)
-				return (1);
-			dup++;
-		}
-	}
-	return (0);
-}
-
-int	check_duplst(int *arr, int size)
-{
-	int	i;
-
-	i = -1;
-	while (++i < size)
-		if (check_fordup(arr, arr[i], size))
 			return (1);
 	return (0);
 }
