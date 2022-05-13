@@ -9,6 +9,7 @@ void	error_msg(int fd, char *msg, int err_code)
 	write(fd, msg, strlen(msg));
 	exit(err_code);
 }
+
 int	ft_isdigit(int c)
 {
 	if (c >= '0' && c <= '9')
@@ -38,35 +39,6 @@ int	nbr_only(char **arr)
 	while (arr[++i])
 		if (check_num(arr[i]) || (atoi(arr[i]) == -1
 				&& strcmp(arr[i], "-1")))
-			return (1);
-	return (0);
-}
-
-int	check_fordup(int *arr, int n, int size)
-{
-	int	i;
-	int	dup;
-
-	i = -1;
-	dup = 0;
-	while (++i < size)
-	{
-		if (arr[i] == n)
-		{
-			if (dup)
-				return (1);
-			dup++;
-		}
-	}
-	return (0);
-}
-int	check_duplst(int *arr, int size)
-{
-	int	i;
-
-	i = -1;
-	while (++i < size)
-		if (check_fordup(arr, arr[i], size))
 			return (1);
 	return (0);
 }
@@ -104,14 +76,8 @@ void	ft_fill_list(int **num_list, int ac, char **av)
 	i = -1;
 	a = NULL;
 	while (++i < ac)
-	{
-		
 		new_node(&a, atoi(av[i]));
-	}
 }
-
-
-
 
 int    ft_strlen(char *str)
 {
@@ -273,15 +239,20 @@ int main(int argc, char **argv)
 	t_stack *a;
 
 	int i = 0;
+	if (argc < 2)
+		exit(1);
 	while (i++ < argc - 1)
 		if (argv[i][0] == '\0')
 			exit(printf("XD\n"));
 	write(1, "v\n", 2);
 	split_str = ft_join_args(argv,argc);
+	
 	printf("%s\n", split_str);
 	argv = ft_split(split_str, ' ');
 	if (argc < 3)
+	{
 		printf("invalid number of arguments\n");
+	}
 	if (nbr_only(argv + 1))
 		error_msg(2,"Error\n",1);
 	ft_fill_list(&stack_a, argc, (argv));	
