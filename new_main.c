@@ -108,6 +108,7 @@ int main(int argc, char **argv)
 	int *num_list;
 	t_stack *stack_a;
 
+	argv = ft_aplit(argv, ' ');
 	if (argc <= 1)
 		printf("invalid number of arguments\n");
 	if (nbr_only(argv + 1))
