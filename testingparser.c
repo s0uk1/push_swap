@@ -80,7 +80,32 @@ void	new_node(t_stack **stack,int val)
 	tmp->next = new;
 }
 
-void	ft_fill_list(int **num_list, char **av)
+void	put_lst(t_stack *lst)
+{
+	while (lst)
+	{
+		printf("%d\n",lst->val);
+		lst = lst->next;
+	}
+}
+
+t_stack **fetch_address(t_stack **a, t_stack **b, int c)
+{
+	static t_stack	**a_address;
+	static t_stack	**b_address;
+	static int		k;
+	
+	if (!k++)
+	{
+		a_address = a;
+		b_address = b;
+	}
+	if (c == 'a')
+		return (a_address);
+	return (b_address);
+}
+
+t_stack	*ft_fill_list(char **av)
 {
 	int		i;
 	int 	c;
@@ -90,8 +115,7 @@ void	ft_fill_list(int **num_list, char **av)
 	a = NULL;
 	while (av[i])
 		new_node(&a, atoi(av[i++]));
-	c = stack_size(a);
-	printf("%d",c);
+	return (a);
 }
 
 int    ft_strlen(char *str)
@@ -246,18 +270,99 @@ char	**ft_split(char const *s, char c)
 	return (word);
 }
 
+t_stack *get_address(int c)
+{
+	if (c == 'a')
+		return (*fetch_address(NULL, NULL, 'a'));
+	return (*fetch_address(NULL, NULL, 'b'));
+}
 
+void f()
+{
+	put_lst(get_address('a'));
+}
 
+void	swap(int *a, int*b)
+{
+	int tmp;
+	
+	tmp = *a;
+	*a = *b;
+	*b = tmp;
+}
+
+int	*sort_tab(int *tab, int size)
+{
+	int i;
+	int j;
+	
+	i = 0;
+	while (i < size - 1)
+	{
+		j = i + 1;
+		if (tab[i] > tab[j])
+		{
+			swap(&tab[i], &tab[j]);
+			i = 0;
+		}
+		i++;
+	}
+	return (tab);
+}
+
+int	index_of(int *tab, int val)
+{
+	int i;
+
+	i = 0;
+	while (1)
+	{
+		if (tab[i] == val)
+			return (i);
+		i++;
+	}
+	return (0);
+}
+
+t_stack *indexate(t_stack *st, int *tab, int size)
+{
+	int i;
+
+	i = 0;
+	while (st)
+	{
+		st->val = index_of(tab ,st->val);
+		st = st->next;
+	}
+	return (st);
+}
+
+int	*stack_to_arr(int *tab,t_stack *st)
+{
+	int	i;
+	int len; 
+	
+	i = 0;
+	len = stack_size(st);
+	tab = (int *)malloc(sizeof(int) * len);
+	while(st != NULL)
+	{
+		tab[i++] = st->val;
+		st = st->next;
+	}
+	 return (tab);
+}
 
 int main(int argc, char **argv)
 {
-	int *stack_a;
-	char *split_str;
+	int	*tab;
 	t_stack *a;
+	t_stack *b;
+	char *split_str;
 
-	// char **arr = ft_split("5", ' ');
-	// while (*arr)
-	// 	printf("%s\n", *arr++);
+	a = NULL;
+	b = NULL;
+	fetch_address(&a, &b, 34234);
 	int i = 0;
 	if (argc < 2)
 		exit(1);
@@ -267,8 +372,17 @@ int main(int argc, char **argv)
 	split_str = ft_join_args(argv,argc);
 	if (nbr_only(argv + 1))
 		error_msg(2,"Error\n",1);
-	printf("%s\n", split_str);
 	argv = ft_split(split_str, ' ');
-	ft_fill_list(&stack_a,  argv);	
-
+	a = ft_fill_list(argv);	
+	tab = stack_to_arr(tab,get_address('a'));
+	tab = sort_tab(tab,4);
+	a = indexate(a, tab,4);
+	// int j = 0;
+	// while(j < 4)
+	// {
+	// 	printf("%d\n",tab[j]);
+	// 	j++;
+	// } 
+	//f();
+	//put_lst(get_address('a'));
 }
