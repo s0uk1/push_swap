@@ -35,18 +35,32 @@ int	nbr_only(char **arr)
 {
 	int	i;
 
-	i = -1;
-	while (arr[++i])
+	i = 0;
+	while (i++)
 		if (check_num(arr[i]) || (atoi(arr[i]) == -1
 				&& strcmp(arr[i], "-1")))
 			return (1);
 	return (0);
 }
 
+int	stack_size(t_stack *lst)
+{
+	int		i;
+
+	i = 0;
+	while (lst)
+	{
+		i++;
+		lst = lst->next;
+	}
+	return (i);
+}
+// 6 2 3 4
 void	new_node(t_stack **stack,int val)
 {
 	t_stack *new;
 	t_stack *tmp;
+	int c;
 	
 	new = (t_stack *)malloc(sizeof(t_stack));
 	new->val = val;
@@ -64,19 +78,20 @@ void	new_node(t_stack **stack,int val)
 		tmp = tmp->next;
 	}
 	tmp->next = new;
-	
 }
 
-void	ft_fill_list(int **num_list, int ac, char **av)
+void	ft_fill_list(int **num_list, char **av)
 {
 	int		i;
+	int 	c;
 	t_stack	*a;
 
-	(*num_list) = (int *)malloc(sizeof(int) * ac);
-	i = -1;
+	i = 0;
 	a = NULL;
-	while (++i < ac)
-		new_node(&a, atoi(av[i]));
+	while (av[i])
+		new_node(&a, atoi(av[i++]));
+	c = stack_size(a);
+	printf("%d",c);
 }
 
 int    ft_strlen(char *str)
@@ -232,29 +247,28 @@ char	**ft_split(char const *s, char c)
 }
 
 
+
+
 int main(int argc, char **argv)
 {
 	int *stack_a;
 	char *split_str;
 	t_stack *a;
 
+	// char **arr = ft_split("5", ' ');
+	// while (*arr)
+	// 	printf("%s\n", *arr++);
 	int i = 0;
 	if (argc < 2)
 		exit(1);
 	while (i++ < argc - 1)
 		if (argv[i][0] == '\0')
 			exit(printf("XD\n"));
-	write(1, "v\n", 2);
 	split_str = ft_join_args(argv,argc);
-	
-	printf("%s\n", split_str);
-	argv = ft_split(split_str, ' ');
-	if (argc < 3)
-	{
-		printf("invalid number of arguments\n");
-	}
 	if (nbr_only(argv + 1))
 		error_msg(2,"Error\n",1);
-	ft_fill_list(&stack_a, argc, (argv));	
+	printf("%s\n", split_str);
+	argv = ft_split(split_str, ' ');
+	ft_fill_list(&stack_a,  argv);	
 
 }

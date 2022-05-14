@@ -6,7 +6,7 @@
 /*   By: ssabbaji <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 16:44:38 by ssabbaji          #+#    #+#             */
-/*   Updated: 2022/05/11 20:23:09 by ssabbaji         ###   ########.fr       */
+/*   Updated: 2022/05/14 13:06:20 by ssabbaji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ int	nbr_only(char **arr)
 {
 	int	i;
 
-	i = -1;
-	while (arr[++i])
+	i = 0;
+	while (i++)
 		if (check_num(arr[i]) || (atoi(arr[i]) == -1
 				&& strcmp(arr[i], "-1")))
 			return (1);
