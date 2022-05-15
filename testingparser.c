@@ -130,6 +130,7 @@ int    ft_strlen(char *str)
     return (i);
 }
 
+
 char    *ft_strjoin(char *s1, char *s2)
 {
     int        i;
@@ -270,16 +271,16 @@ char	**ft_split(char const *s, char c)
 	return (word);
 }
 
-t_stack *get_address(int c)
+t_stack **get_address(int c)
 {
 	if (c == 'a')
-		return (*fetch_address(NULL, NULL, 'a'));
-	return (*fetch_address(NULL, NULL, 'b'));
+		return (fetch_address(NULL, NULL, 'a'));
+	return (fetch_address(NULL, NULL, 'b'));
 }
 
 void f()
 {
-	put_lst(get_address('a'));
+	put_lst(*get_address('a'));
 }
 
 void	swap(int *a, int*b)
@@ -324,17 +325,19 @@ int	index_of(int *tab, int val)
 	return (0);
 }
 
-t_stack *indexate(t_stack *st, int *tab, int size)
+t_stack *indexate(t_stack **st, int *tab, int size)
 {
 	int i;
+	t_stack	*tmp;
 
 	i = 0;
-	while (st)
+	tmp = *st;
+	while (tmp)
 	{
-		st->val = index_of(tab ,st->val);
-		st = st->next;
+		tmp->val = index_of(tab , tmp->val);
+		tmp = tmp->next;
 	}
-	return (st);
+	return (*st);
 }
 
 int	*stack_to_arr(int *tab,t_stack *st)
@@ -352,6 +355,36 @@ int	*stack_to_arr(int *tab,t_stack *st)
 	}
 	 return (tab);
 }
+
+t_stack *ra_done(t_stack **head)
+{
+	t_stack *current;
+	t_stack *tmp;
+	t_stack *fml;
+
+	current = *head;
+	tmp = current;
+	fml = current->next;
+	while (current->next != NULL)
+	{
+		tmp = current;
+		current = current->next;
+	}
+	current->next = (*head);
+	(*head)->next = NULL;
+	*head = fml;
+	return (*head);
+}
+
+void	ra()
+{
+	t_stack **st;
+
+	st = get_address('a');
+	printf("ra\n");
+	*st = ra_done(st);
+}
+
 
 int main(int argc, char **argv)
 {
@@ -374,9 +407,9 @@ int main(int argc, char **argv)
 		error_msg(2,"Error\n",1);
 	argv = ft_split(split_str, ' ');
 	a = ft_fill_list(argv);	
-	tab = stack_to_arr(tab,get_address('a'));
+	tab = stack_to_arr(tab,*get_address('a'));
 	tab = sort_tab(tab,4);
-	a = indexate(a, tab,4);
+	a = indexate(&a, tab,4);
 	// int j = 0;
 	// while(j < 4)
 	// {
@@ -384,5 +417,8 @@ int main(int argc, char **argv)
 	// 	j++;
 	// } 
 	//f();
-	//put_lst(get_address('a'));
+	put_lst(*get_address('a'));
+	ra();
+	put_lst(*get_address('a'));
+
 }
