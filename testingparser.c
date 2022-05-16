@@ -356,10 +356,77 @@ int	*stack_to_arr(int *tab,t_stack *st)
 	 return (tab);
 }
 
+void	del_fnode(t_stack **head)
+{
+	t_stack *tmp;
+	
+	tmp = *head;
+	*head = (*head)->next;
+	free (tmp);
+}
+
+void	del_last(t_stack **head)
+{
+	t_stack *tmp;
+	t_stack *node;
+
+	tmp = *head;
+	while (tmp->next->next != NULL)
+		tmp = tmp->next;
+	node = tmp->next;
+	tmp->next = NULL;
+	free(node);
+}
 
 
+void	lst_addfr(t_stack **head, int val)
+{
+	t_stack *new;
+
+	new = (t_stack *)malloc(sizeof(t_stack));
+
+	new->val = val;
+	new->next = *head;
+	*head = new;
+}
 
 
+//t_stack *rra_done(t_stack **head)
+//{
+//	int val;
+//	while (*head)
+//		*head = (*head)->next;
+//	val = (*head)-
+//}
+//
+//
+//void	rra()
+//{
+//	t_stack **st;
+//	st = get_address('a');
+//	printf("rra\n");
+//	*st = rra_done(st);
+//}
+
+
+void	pa_done(t_stack **st_a, t_stack **st_b)
+{
+	int	val;
+
+	val = (*st_a)->val;
+	del_fnode(st_a);
+	lst_addfr(st_b, val);
+}
+
+void	pb()
+{
+	t_stack **st_a;
+	t_stack **st_b;
+
+	st_a = get_address('a');
+	st_b = get_address('b');
+	pa_done(st_a, st_b);
+}
 
 t_stack	*sa_done(t_stack **head)
 {
@@ -433,7 +500,7 @@ int main(int argc, char **argv)
 	a = ft_fill_list(argv);	
 	tab = stack_to_arr(tab,*get_address('a'));
 	tab = sort_tab(tab,4);
-	a = indexate(&a, tab,4);
+	//a = indexate(&a, tab,4);
 	// int j = 0;
 	// while(j < 4)
 	// {
@@ -443,7 +510,15 @@ int main(int argc, char **argv)
 	//f();
 	put_lst(*get_address('a'));
 	//ra();
-	sa();
+	//sa();
+	printf("----------\n");
+	pb();
+	pb();
+	pb();
+	pb();
+	pb();
+	printf("a:\n");
 	put_lst(*get_address('a'));
-
+	printf("b:\n");
+	put_lst(*get_address('b'));
 }
