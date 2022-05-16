@@ -356,6 +356,30 @@ int	*stack_to_arr(int *tab,t_stack *st)
 	 return (tab);
 }
 
+
+
+
+
+
+t_stack	*sa_done(t_stack **head)
+{
+	int	tmp;
+
+	tmp = (*head)->val;
+	(*head)->val = (*head)->next->val;
+	(*head)->next->val = tmp;
+	return (*head);
+}
+
+
+void	sa()
+{
+	t_stack **st;
+	st = get_address('a');
+	printf("sa\n");
+	*st = sa_done(st);
+}
+
 t_stack *ra_done(t_stack **head)
 {
 	t_stack *current;
@@ -418,7 +442,8 @@ int main(int argc, char **argv)
 	// } 
 	//f();
 	put_lst(*get_address('a'));
-	ra();
+	//ra();
+	sa();
 	put_lst(*get_address('a'));
 
 }
