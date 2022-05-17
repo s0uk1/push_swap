@@ -389,6 +389,36 @@ void	lst_addfr(t_stack **head, int val)
 	new->next = *head;
 	*head = new;
 }
+t_stack *rrb_done(t_stack **head)
+{
+	int val;
+	t_stack *current;
+	t_stack *next;
+
+
+	current = *head;
+	next = current->next;
+	while (next != NULL)
+	{
+		current = next;
+		next = current->next;
+	}
+	val = current->val;
+	del_last(head);
+	lst_addfr(head, val);
+	return (*head);
+}
+
+
+void	rrb(int flag)
+{
+	t_stack **st;
+	st = get_address('b');
+	if (flag)
+		printf("rrb\n");
+	rrb_done(st);
+}
+
 
 
 t_stack *rra_done(t_stack **head)
@@ -412,13 +442,22 @@ t_stack *rra_done(t_stack **head)
 }
 
 
-void	rra()
+void	rra(int flag)
 {
 	t_stack **st;
 	st = get_address('a');
-	printf("rra\n");
-	*st = rra_done(st);
+	if (flag)
+		printf("rra\n");
+	rra_done(st);
 }
+
+void	rrr()
+{
+	printf("rrr\n");
+	rra(0);
+	rrb(0);
+}
+
 void	pa_done(t_stack **st_a, t_stack **st_b)
 {
 	int	val;
@@ -435,6 +474,7 @@ void	pa()
 
 	st_a = get_address('a');
 	st_b = get_address('b');
+	printf("pa\n");
 	pa_done(st_a, st_b);
 }
 
@@ -455,29 +495,34 @@ void	pb()
 
 	st_a = get_address('a');
 	st_b = get_address('b');
+	printf("pb\n");
 	pb_done(st_a, st_b);
 }
 
 
 
-void	pb_done(t_stack **st_a, t_stack **st_b)
+t_stack	*sb_done(t_stack **head)
 {
-	int	val;
+	int	tmp;
 
-	val = (*st_a)->val;
-	del_fnode(st_a);
-	lst_addfr(st_b, val);
+	tmp = (*head)->val;
+	(*head)->val = (*head)->next->val;
+	(*head)->next->val = tmp;
+	return (*head);
 }
 
-void	pb()
-{
-	t_stack **st_a;
-	t_stack **st_b;
 
-	st_a = get_address('a');
-	st_b = get_address('b');
-	pb_done(st_a, st_b);
+void	sb(int flag)
+{
+	t_stack **st;
+	st = get_address('b');
+	if (flag)
+		printf("sb\n");
+	*st = sb_done(st);
 }
+
+
+
 
 t_stack	*sa_done(t_stack **head)
 {
@@ -490,13 +535,52 @@ t_stack	*sa_done(t_stack **head)
 }
 
 
-void	sa()
+void	sa(int flag)
 {
 	t_stack **st;
 	st = get_address('a');
-	printf("sa\n");
+	if (flag)
+		printf("sa\n");
 	*st = sa_done(st);
 }
+
+void	ss()
+{
+	printf("ss\n");
+	sa(0);
+	sb(0);
+}
+
+t_stack *rb_done(t_stack **head)
+{
+	t_stack *current;
+	t_stack *tmp;
+	t_stack *fml;
+
+	current = *head;
+	tmp = current;
+	fml = current->next;
+	while (current->next != NULL)
+	{
+		tmp = current;
+		current = current->next;
+	}
+	current->next = (*head);
+	(*head)->next = NULL;
+	*head = fml;
+	return (*head);
+}
+
+void	rb(int flag)
+{
+	t_stack **st;
+
+	st = get_address('b');
+	if (flag)
+		printf("rb\n");
+	*st = rb_done(st);
+}
+
 
 t_stack *ra_done(t_stack **head)
 {
@@ -518,14 +602,71 @@ t_stack *ra_done(t_stack **head)
 	return (*head);
 }
 
-void	ra()
+void	ra(int flag)
 {
 	t_stack **st;
 
 	st = get_address('a');
-	printf("ra\n");
+	if (flag)
+		printf("ra\n");
 	*st = ra_done(st);
 }
+
+
+void	rr()
+{
+	printf("rr\n");
+	ra(0);
+	rb(0);
+}
+
+
+int get_nnode(int index, t_stack **head)
+{
+	int c;
+	t_stack	*curr;
+	
+	c = 0;
+	curr = *head;
+	while (curr != NULL)
+	{
+		if (c == index)
+			return (curr->val);
+		c++;
+		curr = curr->next;
+	}
+	return (0);
+}
+
+void	sort_three(t_stack **head)
+{
+	int f_val;
+	int s_val;
+	int t_val;
+	
+	f_val = get_nnode(0, head);
+	s_val = get_nnode(1, head);
+	t_val = get_nnode(2, head);
+	if (f_val > s_val && s_val < t_val && f_val < t_val)
+		sa(1);
+	else if (f_val > s_val && s_val > t_val && f_val > t_val)
+	{
+		sa(1);
+		rra(1);
+	}
+	else if (f_val > s_val && f_val > t_val && s_val < t_val)
+		ra(1);
+	else if (f_val < s_val && t_val > f_val && s_val > t_val)
+	{
+		sa(1);
+		ra(1);
+
+	}
+	else if (f_val > t_val && s_val > f_val && s_val > f_val)
+		rra(1);
+}
+
+
 
 
 int main(int argc, char **argv)
@@ -563,7 +704,16 @@ int main(int argc, char **argv)
 	//ra();
 	//sa();
 	printf("----------\n");
-	rra();
+//	sa(1);
 	printf("a:\n");
+	sort_three(&a);
 	put_lst(*get_address('a'));
+//	if (stack_size == 2)
+//	{
+//		if (is_sorted)
+//			return ;
+//		else 
+//			sa();
+//	}
+//	if (stack_size == 3)
 }
