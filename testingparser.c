@@ -391,25 +391,55 @@ void	lst_addfr(t_stack **head, int val)
 }
 
 
-//t_stack *rra_done(t_stack **head)
-//{
-//	int val;
-//	while (*head)
-//		*head = (*head)->next;
-//	val = (*head)-
-//}
-//
-//
-//void	rra()
-//{
-//	t_stack **st;
-//	st = get_address('a');
-//	printf("rra\n");
-//	*st = rra_done(st);
-//}
+t_stack *rra_done(t_stack **head)
+{
+	int val;
+	t_stack *current;
+	t_stack *next;
 
 
+	current = *head;
+	next = current->next;
+	while (next != NULL)
+	{
+		current = next;
+		next = current->next;
+	}
+	val = current->val;
+	del_last(head);
+	lst_addfr(head, val);
+	return (*head);
+}
+
+
+void	rra()
+{
+	t_stack **st;
+	st = get_address('a');
+	printf("rra\n");
+	*st = rra_done(st);
+}
 void	pa_done(t_stack **st_a, t_stack **st_b)
+{
+	int	val;
+
+	val = (*st_b)->val;
+	del_fnode(st_b);
+	lst_addfr(st_a, val);
+}
+
+void	pa()
+{
+	t_stack **st_a;
+	t_stack **st_b;
+
+	st_a = get_address('a');
+	st_b = get_address('b');
+	pa_done(st_a, st_b);
+}
+
+
+void	pb_done(t_stack **st_a, t_stack **st_b)
 {
 	int	val;
 
@@ -425,7 +455,28 @@ void	pb()
 
 	st_a = get_address('a');
 	st_b = get_address('b');
-	pa_done(st_a, st_b);
+	pb_done(st_a, st_b);
+}
+
+
+
+void	pb_done(t_stack **st_a, t_stack **st_b)
+{
+	int	val;
+
+	val = (*st_a)->val;
+	del_fnode(st_a);
+	lst_addfr(st_b, val);
+}
+
+void	pb()
+{
+	t_stack **st_a;
+	t_stack **st_b;
+
+	st_a = get_address('a');
+	st_b = get_address('b');
+	pb_done(st_a, st_b);
 }
 
 t_stack	*sa_done(t_stack **head)
@@ -512,13 +563,7 @@ int main(int argc, char **argv)
 	//ra();
 	//sa();
 	printf("----------\n");
-	pb();
-	pb();
-	pb();
-	pb();
-	pb();
+	rra();
 	printf("a:\n");
 	put_lst(*get_address('a'));
-	printf("b:\n");
-	put_lst(*get_address('b'));
 }
