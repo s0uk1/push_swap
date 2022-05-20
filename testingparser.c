@@ -38,7 +38,7 @@ int	nbr_only(char **arr)
 	i = 0;
 	while (i++)
 		if (check_num(arr[i]) || (atoi(arr[i]) == -1
-				&& strcmp(arr[i], "-1")))
+					&& strcmp(arr[i], "-1")))
 			return (1);
 	return (0);
 }
@@ -61,7 +61,7 @@ void	new_node(t_stack **stack,int val)
 	t_stack *new;
 	t_stack *tmp;
 	int c;
-	
+
 	new = (t_stack *)malloc(sizeof(t_stack));
 	new->val = val;
 	new->next = NULL;
@@ -94,7 +94,7 @@ t_stack **fetch_address(t_stack **a, t_stack **b, int c)
 	static t_stack	**a_address;
 	static t_stack	**b_address;
 	static int		k;
-	
+
 	if (!k++)
 	{
 		a_address = a;
@@ -120,59 +120,59 @@ t_stack	*ft_fill_list(char **av)
 
 int    ft_strlen(char *str)
 {
-    int    i;
+	int    i;
 
-    if (!str)
-        return (0);
-    i = 0;
-    while (str[i] != '\0')
-        i++;
-    return (i);
+	if (!str)
+		return (0);
+	i = 0;
+	while (str[i] != '\0')
+		i++;
+	return (i);
 }
 
 
 char    *ft_strjoin(char *s1, char *s2)
 {
-    int        i;
-    int        j;
-    char    *str;
+	int        i;
+	int        j;
+	char    *str;
 
-    if (!s1)
-    {
-        s1 = (char *)malloc(1 * sizeof(char));
-        if (!s1)
-            exit(1);
-        s1[0] = '\0';
-    }
-    if (!s2)
-        return (NULL);
-    str = malloc(ft_strlen(s1) + ft_strlen(s2) + 2);
-    if (!str)
-        exit(1);
-    i = -1;
-    j = 0;
-    while (s1[++i])
-        str[i] = s1[i];
-    while (s2[j])
-        str[i++] = s2[j++];
-    str[ft_strlen(s1) + ft_strlen(s2)] = '\0';
-    free(s1);
-    return (str);
+	if (!s1)
+	{
+		s1 = (char *)malloc(1 * sizeof(char));
+		if (!s1)
+			exit(1);
+		s1[0] = '\0';
+	}
+	if (!s2)
+		return (NULL);
+	str = malloc(ft_strlen(s1) + ft_strlen(s2) + 2);
+	if (!str)
+		exit(1);
+	i = -1;
+	j = 0;
+	while (s1[++i])
+		str[i] = s1[i];
+	while (s2[j])
+		str[i++] = s2[j++];
+	str[ft_strlen(s1) + ft_strlen(s2)] = '\0';
+	free(s1);
+	return (str);
 }
 
 char    *ft_join_args(char *argv[], int argc)
 {
-    char    *args;
-    int        i;
+	char    *args;
+	int        i;
 
-    i = 1;
-    args = NULL;
-    while (i < argc)
-    {
-        args = ft_strjoin(args, argv[i++]);
-        args = ft_strjoin(args, " ");
-    }
-    return (args);
+	i = 1;
+	args = NULL;
+	while (i < argc)
+	{
+		args = ft_strjoin(args, argv[i++]);
+		args = ft_strjoin(args, " ");
+	}
+	return (args);
 }
 
 
@@ -286,7 +286,7 @@ void f()
 void	swap(int *a, int*b)
 {
 	int tmp;
-	
+
 	tmp = *a;
 	*a = *b;
 	*b = tmp;
@@ -296,7 +296,7 @@ int	*sort_tab(int *tab, int size)
 {
 	int i;
 	int j;
-	
+
 	i = 0;
 	while (i < size - 1)
 	{
@@ -344,7 +344,7 @@ int	*stack_to_arr(int *tab,t_stack *st)
 {
 	int	i;
 	int len; 
-	
+
 	i = 0;
 	len = stack_size(st);
 	tab = (int *)malloc(sizeof(int) * len);
@@ -353,13 +353,13 @@ int	*stack_to_arr(int *tab,t_stack *st)
 		tab[i++] = st->val;
 		st = st->next;
 	}
-	 return (tab);
+	return (tab);
 }
 
 void	del_fnode(t_stack **head)
 {
 	t_stack *tmp;
-	
+
 	tmp = *head;
 	*head = (*head)->next;
 	free (tmp);
@@ -625,7 +625,7 @@ int get_nnode(int index, t_stack **head)
 {
 	int c;
 	t_stack	*curr;
-	
+
 	c = 0;
 	curr = *head;
 	while (curr != NULL)
@@ -643,7 +643,7 @@ void	sort_three(t_stack **head)
 	int f_val;
 	int s_val;
 	int t_val;
-	
+
 	f_val = get_nnode(0, head);
 	s_val = get_nnode(1, head);
 	t_val = get_nnode(2, head);
@@ -666,8 +666,126 @@ void	sort_three(t_stack **head)
 		rra(1);
 }
 
+int	check_smallest(t_stack *head)
+{
+	int min;
+
+	min = head->val;
+	while (head != NULL)
+	{
+		if (head->val < min)
+			min = head->val;
+		head = head->next;
+	}
+	return (min);
+}
+
+int	indexx_of(t_stack *head, int val)
+{
+	int i;
+
+	i = 0;
+	while (head != NULL)
+	{
+		if (head->val == val)
+			return (i);
+		head = head->next;
+		i++;
+	}
+	return (0);
+}
+void	sv_helper(t_stack **head)
+{
+	int size;
+	int smallest;
+	int x;
+
+	if ( indexx_of(*head,smallest) < size / 2 )
+		x = 1;
+	smallest = check_smallest(*head);
+	size = stack_size(*head);
+	while ((*head)->val != smallest)
+	{
+		if (x)
+			ra(1);
+		else
+			rra(1);
+	}
+	pb();
+}
+void	sort_five(t_stack **a)
+{
+
+	while (stack_size(*a) != 3)
+		sv_helper(a);
+	sort_three(a);
+	while (*get_address('b'))
+		pa();
+}
+
+void	sort_more(t_stack **a)
+{
+	while (*get_address('a'))
+		sv_helper(a);
+	while (*get_address('b'))
+		pa();
+}
 
 
+void	divide_into_chunks(t_stack **head, int *hold_first, int *hold_second)
+{
+
+	hold_first = -1;
+	while (*head)
+	{
+		if ((*head)->val < 19)
+			if (hold_first == -1)
+				hold_first = (*head)->val;
+		if ((*head)->val < 19)
+			hold_second = (*head)->val;
+		*head = (*head)->next;
+	}
+	printf("XD %d\n",hold_second);
+}
+
+void	push_chunk(t_stack **head)
+{
+	int hold_first;
+	int hold_second;
+
+	while (*head)
+	{
+		(divide_into_chunks(*head, &hold_first, &hold_second))
+
+	}
+}
+void	indexxate(t_stack **a)
+{
+	t_stack *a_clone;
+	t_stack *head;
+
+	head = *get_address('a');
+	while (head)
+	{
+		head->index = 0;
+		a_clone = *a;
+		while (a_clone)
+		{
+			if ((head)->val > a_clone->val)
+			{
+				head->index++;
+			}
+			a_clone = a_clone->next;
+		}
+		head = head->next;
+	}
+	head = *get_address('a');
+	while (head)
+	{
+		head->val = head->index;
+		head = head->next;
+	}
+}
 
 int main(int argc, char **argv)
 {
@@ -692,7 +810,6 @@ int main(int argc, char **argv)
 	a = ft_fill_list(argv);	
 	tab = stack_to_arr(tab,*get_address('a'));
 	tab = sort_tab(tab,4);
-	//a = indexate(&a, tab,4);
 	// int j = 0;
 	// while(j < 4)
 	// {
@@ -704,16 +821,23 @@ int main(int argc, char **argv)
 	//ra();
 	//sa();
 	printf("----------\n");
-//	sa(1);
-	printf("a:\n");
-	sort_three(&a);
+	//	sa(1);
+	//printf("a:\n");
+	//sort_five(get_address('a'));
+	//sort_three(&a);
+	indexxate(&a);
+	//sort_more(get_address('a'));
+	//printf("x %d\n",a->index);
 	put_lst(*get_address('a'));
-//	if (stack_size == 2)
-//	{
-//		if (is_sorted)
-//			return ;
-//		else 
-//			sa();
-//	}
-//	if (stack_size == 3)
+
+	divide_into_chunks(&a);
+	printf("----------\n");
+	//	if (stack_size == 2)
+	//	{
+	//		if (is_sorted)
+	//			return ;
+	//		else 
+	//			sa();
+	//	}
+	//	if (stack_size == 3)
 }
