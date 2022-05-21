@@ -679,7 +679,19 @@ int	check_smallest(t_stack *head)
 	}
 	return (min);
 }
+int	check_biggest(t_stack *head)
+{
+	int min;
 
+	min = head->val;
+	while (head != NULL)
+	{
+		if (head->val > min)
+			min = head->val;
+		head = head->next;
+	}
+	return (min);
+}
 int	indexx_of(t_stack *head, int val)
 {
 	int i;
@@ -700,19 +712,41 @@ void	sv_helper(t_stack **head)
 	int smallest;
 	int x;
 
+	x = 0;
 	if ( indexx_of(*head,smallest) < size / 2 )
 		x = 1;
 	smallest = check_smallest(*head);
 	size = stack_size(*head);
 	while ((*head)->val != smallest)
 	{
-		if (x)
+		if (!x)
 			ra(1);
 		else
 			rra(1);
 	}
 	pb();
 }
+void	helper(t_stack **head)
+{
+	int size;
+	int biggest;
+	int x;
+
+	x = 0;
+	biggest = check_biggest(*head);
+	size = stack_size(*head);
+	if (indexx_of(*head, biggest) < size / 2)
+		x = 1;
+	while ((*head)->val != biggest)
+	{
+		if (x)
+			rb(1);
+		else
+			rrb(1);
+	}
+	pa();
+}
+
 void	sort_five(t_stack **a)
 {
 
@@ -731,34 +765,74 @@ void	sort_more(t_stack **a)
 		pa();
 }
 
-
-void	divide_into_chunks(t_stack **head, int *hold_first, int *hold_second)
+void	last_sort(t_stack **b)
 {
+	while (*get_address('b'))
+		helper(b);
 
-	hold_first = -1;
-	while (*head)
-	{
-		if ((*head)->val < 19)
-			if (hold_first == -1)
-				hold_first = (*head)->val;
-		if ((*head)->val < 19)
-			hold_second = (*head)->val;
-		*head = (*head)->next;
-	}
-	printf("XD %d\n",hold_second);
 }
+
+
+int	hold_vals(t_stack *iter, int *hold_first, int *hold_second)
+{
+	*hold_first = -1;
+	static int var;
+
+	if (check_smallest(*get_address('a')) >= var)
+		var += 20;
+	while (iter)
+	{
+		if (iter->val < var)
+			if (*hold_first == -1)
+				*hold_first = iter->val;
+		if (iter->val < var)
+			*hold_second = iter->val;
+		iter= iter->next;
+	}
+	return (var);
+}
+
+
+void	push_smol(t_stack **head, int hold, int chonk)
+{
+	int size;
+	int x;
+
+	x = 0;
+	if (indexx_of(*head,hold) < stack_size(*head) / 2 )
+		x = 1;
+	while ((*head)->val != hold)
+	{
+		if (x)
+			ra(1);
+		else
+			rra(1);
+	}
+	pb();
+	if (hold > chonk - 10)
+		rb(1);
+}
+
 
 void	push_chunk(t_stack **head)
 {
 	int hold_first;
 	int hold_second;
-
+	int	size;
+	int	chonk;
+	
+	int i = 0;
 	while (*head)
 	{
-		(divide_into_chunks(*head, &hold_first, &hold_second))
-
+		chonk = hold_vals(*head, &hold_first, &hold_second);
+		size = stack_size(*head);
+		if (size - indexx_of(*head, hold_second)  < indexx_of (*head, hold_first)) 
+			push_smol(head, hold_second, chonk);
+		else 
+			push_smol(head, hold_first, chonk);
 	}
 }
+
 void	indexxate(t_stack **a)
 {
 	t_stack *a_clone;
@@ -817,21 +891,23 @@ int main(int argc, char **argv)
 	// 	j++;
 	// } 
 	//f();
-	put_lst(*get_address('a'));
+	indexxate(&a);
+	//put_lst(*get_address('a'));
 	//ra();
 	//sa();
-	printf("----------\n");
+	//printf("----------\n");
 	//	sa(1);
 	//printf("a:\n");
 	//sort_five(get_address('a'));
 	//sort_three(&a);
-	indexxate(&a);
 	//sort_more(get_address('a'));
 	//printf("x %d\n",a->index);
-	put_lst(*get_address('a'));
-
-	divide_into_chunks(&a);
-	printf("----------\n");
+	push_chunk(&a);
+	last_sort(get_address('b'));
+	//put_lst(*get_address('a'));
+	
+	//printf("----------\n");
+	//put_lst(*get_address('b'));
 	//	if (stack_size == 2)
 	//	{
 	//		if (is_sorted)
