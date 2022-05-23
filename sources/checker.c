@@ -6,7 +6,7 @@
 /*   By: ssabbaji <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 17:25:35 by ssabbaji          #+#    #+#             */
-/*   Updated: 2022/05/22 17:48:11 by ssabbaji         ###   ########.fr       */
+/*   Updated: 2022/05/23 13:22:08 by ssabbaji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void	check(t_stack *a)
 	}
 	if (is_sorted(a) && ! get_address('b'))
 		write(1, "OK", 2);
-	else 
+	else
 		write(1, "KO", 2);
 }
 
@@ -82,5 +82,5 @@ int	main(int argc, char **argv)
 	free(split_str);
 	a = ft_fill_list(argv);
 	check(a);
-		return (0);
+	return (0);
 }

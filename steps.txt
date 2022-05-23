@@ -1,6 +1,0 @@
-
-
--tested parsing tools => parsing_tools
--added strjoin and strsplit => their own files
--added node creation and stack creation => lst_tools
-sorting , indexation.

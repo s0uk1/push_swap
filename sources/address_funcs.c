@@ -1,30 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   address_funcs.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ssabbaji <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/10 16:45:27 by ssabbaji          #+#    #+#             */
-/*   Updated: 2022/05/19 13:10:09 by ssabbaji         ###   ########.fr       */
+/*   Created: 2022/05/23 13:20:05 by ssabbaji          #+#    #+#             */
+/*   Updated: 2022/05/23 13:20:36 by ssabbaji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../includes/push_swap.h"
 
-int	is_sorted(t_node *stack_a)
+t_stack	**fetch_address(t_stack **a, t_stack **b, int c)
 {
-	int	i;
+	static t_stack	**a_address;
+	static t_stack	**b_address;
+	static int		k;
 
-	i = 0;
-	if (!stack_a)
-		return (1);
-	while (stack_a->next)
+	if (!k++)
 	{
-		if (stack_a->val > stack_a->next->val)
-				return (0);
-		stack_a = stack_a->next;
+		a_address = a;
+		b_address = b;
 	}
-	return (1);
+	if (c == 'a')
+		return (a_address);
+	return (b_address);
 }
 
+t_stack	**get_address(int c)
+{
+	if (c == 'a')
+		return (fetch_address(NULL, NULL, 'a'));
+	return (fetch_address(NULL, NULL, 'b'));
+}

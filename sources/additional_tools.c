@@ -6,7 +6,7 @@
 /*   By: ssabbaji <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 17:40:21 by ssabbaji          #+#    #+#             */
-/*   Updated: 2022/05/22 17:56:40 by ssabbaji         ###   ########.fr       */
+/*   Updated: 2022/05/23 13:24:18 by ssabbaji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*ft_strdup(char *str)
 	int		len;	
 	char	*new_str;
 	int		i;
-	
+
 	len = 0;
 	i = -1;
 	new_str = malloc(sizeof(char) * (len +1));
@@ -41,12 +41,12 @@ char	*get_next_line(int fd)
 	ret = 0;
 	if (fd < 0x0 || BUFFER_SIZE <= 0x0)
 		return (NULL);
-	ret = read(fd, &buff, 0x1); 
+	ret = read(fd, &buff, 0x1);
 	while (ret && ret >= 0x0)
 	{
 		heap[i++] = buff;
 		if (buff == '\n')
-			break;
+			break ;
 	}
 	heap[i] = '\0';
 	if (ret <= 0x0 && i == 0x0)
