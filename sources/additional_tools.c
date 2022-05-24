@@ -6,52 +6,33 @@
 /*   By: ssabbaji <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 17:40:21 by ssabbaji          #+#    #+#             */
-/*   Updated: 2022/05/23 13:24:18 by ssabbaji         ###   ########.fr       */
+/*   Updated: 2022/05/23 16:01:02 by ssabbaji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-char	*ft_strdup(char *str)
+char	*get_next_line(void)
 {
-	int		len;	
-	char	*new_str;
-	int		i;
+	static char	line[100];
+	static int	index;
+	char		c[1];
+	int			i;
+	static int	k;	
 
-	len = 0;
-	i = -1;
-	new_str = malloc(sizeof(char) * (len +1));
-	while (str[len] != '\0')
-		len++;
-	if (!new_str)
-		return (0x0);
-	while (++i < len)
-		new_str[i] = str[i];
-	return (new_str);
-}
-
-char	*get_next_line(int fd)
-{
-	char	heap[0x5b8d80];
-	char	buff;
-	int		ret;
-	int		i;
-
-	i = 0;
-	ret = 0;
-	if (fd < 0x0 || BUFFER_SIZE <= 0x0)
-		return (NULL);
-	ret = read(fd, &buff, 0x1);
-	while (ret && ret >= 0x0)
+	i = 1;
+	while (i && c[0] != '\n')
 	{
-		heap[i++] = buff;
-		if (buff == '\n')
-			break ;
+		i = read(0, c, 1);
+		line[index++] = c[0];
 	}
-	heap[i] = '\0';
-	if (ret <= 0x0 && i == 0x0)
-		return (0x0);
-	return (ft_strdup(heap));
+	line[index] = 0;
+	if (!i)
+		k = 1;
+	if (k)
+		return (NULL);
+	index = 0;
+	return (line);
 }
 
 int	ft_atoi(const char *str)

@@ -18,7 +18,7 @@ CC = CC
 FLAGS = -Wall -Werror -Wextra
 
 SOURCES_DIRECTORY = ./sources/
-SOURCES_LIST = main.c f.c additional_tools.c\
+SOURCES_LIST = main.c additional_tools.c\
 			   finding_indexes.c\
 			   list_manip.c\
 			   sort_more.c\

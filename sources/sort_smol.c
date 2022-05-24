@@ -85,7 +85,7 @@ void	sv_helper(t_stack **head)
 		else
 			rra(1);
 	}
-	pb();
+	pb(1);
 }
 
 void	sort_five(t_stack **a)
@@ -94,5 +94,5 @@ void	sort_five(t_stack **a)
 		sv_helper(a);
 	sort_three(a);
 	while (*get_address('b'))
-		pa();
+		pa(1);
 }

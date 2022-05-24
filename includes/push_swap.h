@@ -6,7 +6,7 @@
 /*   By: ssabbaji <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 14:27:05 by ssabbaji          #+#    #+#             */
-/*   Updated: 2022/05/22 17:49:34 by ssabbaji         ###   ########.fr       */
+/*   Updated: 2022/05/23 16:01:52 by ssabbaji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,8 @@ void	rra(int flag);
 
 void	pa_done(t_stack **st_a, t_stack **st_b);
 void	pb_done(t_stack **st_a, t_stack **st_b);
-void	pa(void);
-void	pb(void);
+void	pa(int flag);
+void	pb(int flag);
 void	rrr(void);
 
 // linked list manipulation 
@@ -118,6 +118,6 @@ int		ft_strcmp(char *s1, char *s2);
 int		ft_atoi(const char *str);
 int		ft_putstr(char *str);
 char	*ft_strdup(char *str);
-char	*get_next_line(int fd);
+char	*get_next_line(void);
 
 #endif

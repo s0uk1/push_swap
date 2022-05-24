@@ -30,7 +30,7 @@ void	sm_helper(t_stack **head)
 		else
 			rrb(1);
 	}
-	pa();
+	pa(1);
 }
 
 void	sort_more(t_stack **b)
@@ -78,7 +78,7 @@ void	push_smol(t_stack **head, int hold, int chonk, int div)
 		else
 			rra(1);
 	}
-	pb();
+	pb(1);
 	if (div)
 		div_val = 10;
 	else

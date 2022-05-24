@@ -6,7 +6,7 @@
 /*   By: ssabbaji <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 17:25:35 by ssabbaji          #+#    #+#             */
-/*   Updated: 2022/05/23 13:22:08 by ssabbaji         ###   ########.fr       */
+/*   Updated: 2022/05/23 16:08:04 by ssabbaji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ static int	exec(char *operation)
 	else if (!ft_strcmp(operation, "ss\n"))
 		ss();
 	else if (!ft_strcmp(operation, "pa\n"))
-		pa();
+		pa(0);
 	else if (!ft_strcmp(operation, "pb\n"))
-		pb();
+		pb(0);
 	else if (!ft_strcmp(operation, "ra\n"))
 		ra(0);
 	else if (!ft_strcmp(operation, "rb\n"))
@@ -44,16 +44,18 @@ static int	exec(char *operation)
 static void	check(t_stack *a)
 {
 	char	*lel;
+	t_stack	*b;
 
-	lel = "kys<3";
+	b = *get_address('b');
+	lel = "kys";
 	while (lel)
 	{
-		lel = get_next_line(0);
+		lel = get_next_line();
 		if (lel)
 			if (!exec(lel))
 				error_msg(2, "Error\n", 1);
 	}
-	if (is_sorted(a) && ! get_address('b'))
+	if (is_sorted(a) && !b)
 		write(1, "OK", 2);
 	else
 		write(1, "KO", 2);
