@@ -35,6 +35,8 @@ void	pa(int flag)
 
 	st_a = get_address('a');
 	st_b = get_address('b');
+	if (!*st_b)
+		return ;
 	if (flag)
 		ft_putstr("pa\n");
 	pa_done(st_a, st_b);
@@ -56,6 +58,8 @@ void	pb(int flag)
 
 	st_a = get_address('a');
 	st_b = get_address('b');
+	if (!*st_a)
+		return ;
 	if (flag)
 		ft_putstr("pb\n");
 	pb_done(st_a, st_b);

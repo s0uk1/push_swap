@@ -12,12 +12,14 @@
 
 #include "../includes/push_swap.h"
 
-t_stack	*rra_done(t_stack **head)
+void	rra_done(t_stack **head)
 {
 	int		val;
 	t_stack	*current;
 	t_stack	*next;
 
+	if (!*head || !(*head)->next)
+		return ;
 	current = *head;
 	next = current->next;
 	while (next != NULL)
@@ -28,7 +30,6 @@ t_stack	*rra_done(t_stack **head)
 	val = current->val;
 	del_last(head);
 	lst_addfr(head, val);
-	return (*head);
 }
 
 void	rra(int flag)
@@ -41,12 +42,14 @@ void	rra(int flag)
 	rra_done(st);
 }
 
-t_stack	*rrb_done(t_stack **head)
+void	rrb_done(t_stack **head)
 {
 	int		val;
 	t_stack	*current;
 	t_stack	*next;
 
+	if (!*head || !(*head)->next)
+		return ;
 	current = *head;
 	next = current->next;
 	while (next != NULL)
@@ -57,7 +60,6 @@ t_stack	*rrb_done(t_stack **head)
 	val = current->val;
 	del_last(head);
 	lst_addfr(head, val);
-	return (*head);
 }
 
 void	rrb(int flag)

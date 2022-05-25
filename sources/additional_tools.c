@@ -6,7 +6,7 @@
 /*   By: ssabbaji <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 17:40:21 by ssabbaji          #+#    #+#             */
-/*   Updated: 2022/05/23 16:01:02 by ssabbaji         ###   ########.fr       */
+/*   Updated: 2022/05/24 17:49:56 by ssabbaji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,11 @@ char	*get_next_line(void)
 	return (line);
 }
 
-int	ft_atoi(const char *str)
+long	ft_atoi(const char *str)
 {
-	int	i;
-	int	res;
-	int	n;
+	int		i;
+	long	res;
+	int		n;
 
 	i = 0;
 	n = 1;
@@ -51,6 +51,8 @@ int	ft_atoi(const char *str)
 		n = -1;
 		i++;
 	}
+	if (!str[i])
+		error_msg(2, "Error\n", 1);
 	else if (str[i] == '+')
 		i++;
 	while (str[i] != '\0' && str[i] >= '0' && str[i] <= '9')

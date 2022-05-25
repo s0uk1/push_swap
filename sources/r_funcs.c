@@ -12,12 +12,14 @@
 
 #include "../includes/push_swap.h"
 
-t_stack	*rb_done(t_stack **head)
+void	rb_done(t_stack **head)
 {
 	t_stack	*current;
 	t_stack	*tmp;
 	t_stack	*fml;
 
+	if (!*head || !(*head)->next)
+		return ;
 	current = *head;
 	tmp = current;
 	fml = current->next;
@@ -29,7 +31,6 @@ t_stack	*rb_done(t_stack **head)
 	current->next = (*head);
 	(*head)->next = NULL;
 	*head = fml;
-	return (*head);
 }
 
 void	rb(int flag)
@@ -39,15 +40,17 @@ void	rb(int flag)
 	st = get_address('b');
 	if (flag)
 		ft_putstr("rb\n");
-	*st = rb_done(st);
+	rb_done(st);
 }
 
-t_stack	*ra_done(t_stack **head)
+void	ra_done(t_stack **head)
 {
 	t_stack	*current;
 	t_stack	*tmp;
 	t_stack	*fml;
 
+	if (!*head || !(*head)->next)
+		return ;
 	current = *head;
 	tmp = current;
 	fml = current->next;
@@ -59,7 +62,6 @@ t_stack	*ra_done(t_stack **head)
 	current->next = (*head);
 	(*head)->next = NULL;
 	*head = fml;
-	return (*head);
 }
 
 void	ra(int flag)
@@ -69,7 +71,7 @@ void	ra(int flag)
 	st = get_address('a');
 	if (flag)
 		ft_putstr("ra\n");
-	*st = ra_done(st);
+	ra_done(st);
 }
 
 void	rr(void)

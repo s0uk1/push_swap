@@ -12,14 +12,15 @@
 
 #include "../includes/push_swap.h"
 
-t_stack	*sb_done(t_stack **head)
+void	sb_done(t_stack **head)
 {
 	int	tmp;
 
+	if (!*head || !(*head)->next)
+		return ;
 	tmp = (*head)->val;
 	(*head)->val = (*head)->next->val;
 	(*head)->next->val = tmp;
-	return (*head);
 }
 
 void	sb(int flag)
@@ -29,17 +30,18 @@ void	sb(int flag)
 	st = get_address('b');
 	if (flag)
 		ft_putstr("sb\n");
-	*st = sb_done(st);
+	sb_done(st);
 }
 
-t_stack	*sa_done(t_stack **head)
+void	sa_done(t_stack **head)
 {
 	int	tmp;
 
+	if (!*head || !(*head)->next)
+		return ;
 	tmp = (*head)->val;
 	(*head)->val = (*head)->next->val;
 	(*head)->next->val = tmp;
-	return (*head);
 }
 
 void	sa(int flag)
@@ -49,7 +51,7 @@ void	sa(int flag)
 	st = get_address('a');
 	if (flag)
 		ft_putstr("sa\n");
-	*st = sa_done(st);
+	sa_done(st);
 }
 
 void	ss(void)

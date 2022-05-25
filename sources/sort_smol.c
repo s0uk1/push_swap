@@ -74,7 +74,7 @@ void	sv_helper(t_stack **head)
 	x = 0;
 	smallest = 0;
 	size = stack_size(*head);
-	if (indexx_of(*head, smallest) < size / 2)
+	if (indexx_of(*head, smallest) <= size / 2)
 		x = 1;
 	smallest = check_smallest(*head);
 	size = stack_size(*head);

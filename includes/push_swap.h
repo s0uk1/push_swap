@@ -16,6 +16,7 @@
 # include <unistd.h>
 # include <stdarg.h>
 # include <stdlib.h>
+# include <stdio.h>
 
 # define BUFFER_SIZE 10
 
@@ -54,8 +55,8 @@ int		check_int(char **arguments);
 int		is_sorted(t_stack *stack_a);
 // stack to linked list
 
-t_stack	*ft_fill_list(char **av);
-void	new_node(t_stack **stack, int val);
+int	ft_fill_list(char **av, t_stack **a);
+int		new_node(t_stack **stack, int val);
 
 // dunno what to name these even
 
@@ -65,15 +66,15 @@ int		check_smallest(t_stack *head);
 
 // swapping functions 
 
-t_stack	*sb_done(t_stack **head);
-t_stack	*sa_done(t_stack **head);
+void	sb_done(t_stack **head);
+void	sa_done(t_stack **head);
 void	sb(int flag);
 void	sa(int flag);
 void	ss(void);
-t_stack	*rra_done(t_stack **head);
-t_stack	*rb_done(t_stack **head);
-t_stack	*ra_done(t_stack **head);
-t_stack	*rrb_done(t_stack **head);
+void	rra_done(t_stack **head);
+void	rb_done(t_stack **head);
+void	ra_done(t_stack **head);
+void	rrb_done(t_stack **head);
 void	rb(int flag);
 void	ra(int flag);
 void	rr(void);
@@ -109,13 +110,13 @@ char	**ft_split(char const *s, char c);
 void	sm_helper(t_stack **head);
 void	sort_more(t_stack **b);
 void	push_chunk(t_stack **head, int div);
-void	push_smol(t_stack **head, int hold, int chonk, int div);
+void	push_smol(t_stack **head, int hold, int div);
 int		hold_vals(t_stack *iter, int *hold_first, int *hold_second, int div);
 
 // additional tools
 
 int		ft_strcmp(char *s1, char *s2);
-int		ft_atoi(const char *str);
+long	ft_atoi(const char *str);
 int		ft_putstr(char *str);
 char	*ft_strdup(char *str);
 char	*get_next_line(void);

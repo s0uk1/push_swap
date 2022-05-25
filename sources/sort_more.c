@@ -21,7 +21,7 @@ void	sm_helper(t_stack **head)
 	x = 0;
 	biggest = check_biggest(*head);
 	size = stack_size(*head);
-	if (indexx_of(*head, biggest) < size / 2)
+	if (indexx_of(*head, biggest) <= size / 2)
 		x = 1;
 	while ((*head)->val != biggest)
 	{
@@ -63,13 +63,13 @@ int	hold_vals(t_stack *iter, int *hold_first, int *hold_second, int div)
 	return (var);
 }
 
-void	push_smol(t_stack **head, int hold, int chonk, int div)
+void	push_smol(t_stack **head, int hold, int div)
 {
 	int	x;
 	int	div_val;
 
 	x = 0;
-	if (indexx_of(*head, hold) < stack_size(*head) / 2)
+	if (indexx_of(*head, hold) <= stack_size(*head) / 2)
 		x = 1;
 	while ((*head)->val != hold)
 	{
@@ -83,8 +83,6 @@ void	push_smol(t_stack **head, int hold, int chonk, int div)
 		div_val = 10;
 	else
 		div_val = 23;
-	if (hold > chonk - div_val)
-		rb(1);
 }
 
 void	push_chunk(t_stack **head, int div)
@@ -92,15 +90,14 @@ void	push_chunk(t_stack **head, int div)
 	int	hold_first;
 	int	hold_second;
 	int	size;
-	int	chonk;
 
 	while (*head)
 	{
-		chonk = hold_vals(*head, &hold_first, &hold_second, div);
+		hold_vals(*head, &hold_first, &hold_second, div);
 		size = stack_size(*head);
 		if (size - indexx_of(*head, hold_second) < indexx_of(*head, hold_first))
-			push_smol(head, hold_second, chonk, div);
+			push_smol(head, hold_second, div);
 		else
-			push_smol(head, hold_first, chonk, div);
+			push_smol(head, hold_first, div);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: ssabbaji <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 16:10:38 by ssabbaji          #+#    #+#             */
-/*   Updated: 2022/05/22 13:53:19 by ssabbaji         ###   ########.fr       */
+/*   Updated: 2022/05/24 17:34:48 by ssabbaji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,37 +34,48 @@ int	free_everything(int XD)
 	return (XD);
 }
 
-void	new_node(t_stack **stack, int val)
+
+int	new_node(t_stack **stack, int val)
 {
 	t_stack	*new;
 	t_stack	*tmp;
+	t_stack	*iter;
+	int fail = 0;
 
 	new = (t_stack *)malloc(sizeof(t_stack));
+	if (!new)
+		return (0);
 	new->val = val;
 	new->next = NULL;
 	if (!(*stack))
 	{
 		*stack = new;
-		return ;
+		return (69);
 	}
 	tmp = *stack;
-	while (tmp->next)
+	iter = tmp;
+	while (iter)
 	{
-		if (tmp->val == val)
-			error_msg(2, "Error\n", 1);
-		tmp = tmp->next;
+		if (iter->val == val)
+			fail = 1;
+		iter = iter->next;
 	}
+	while (tmp->next)
+		tmp = tmp->next;
 	tmp->next = new;
+	if (fail)
+		return (0);
+	return (69);
 }
 
-t_stack	*ft_fill_list(char **av)
+int	ft_fill_list(char **av, t_stack **a)
 {
 	int		i;
-	t_stack	*a;
 
 	i = 0;
-	a = NULL;
+	*a = NULL;
 	while (av[i])
-		new_node(&a, atoi(av[i++]));
-	return (a);
+		if (!new_node(a, atoi(av[i++])))
+			return (0);
+	return (1);
 }

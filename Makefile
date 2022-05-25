@@ -12,7 +12,7 @@
 
 
 NAME = push_swap
-
+CHECKER = checker
 CC = CC
 
 FLAGS = -Wall -Werror -Wextra
@@ -34,7 +34,7 @@ SOURCES_LIST = main.c additional_tools.c\
 			   address_funcs.c\
 			   swap_funcs.c
 
-SRC_BONUS_LIST = checker.c \
+SRC_BONUS_LIST = checker_bonus.c \
 				additional_tools.c\
 				 finding_indexes.c\
 				 list_manip.c\
@@ -70,11 +70,13 @@ OBJ_BONUS = ${SRC_BONUS:.c=.o}
 all: ${NAME}
 
 ${NAME}: ${OBJ}
-	$(CC) $(OBJ) -o ${NAME}
+	$(CC) $(FLAGS) $(OBJ) -o ${NAME}
 	@echo ${PURPLE}"$(NAME): Compiling"
 
-bonus: ${OBJ_BONUS}
-	$(CC) $(OBJ_BONUS) -o checker
+bonus: $(CHECKER)
+
+$(CHECKER): ${OBJ_BONUS}
+	$(CC) $(FLAGS) $(OBJ_BONUS) -o $(CHECKER)
 	@echo ${PURPLE}"checker : Compiling"
 
 clean:

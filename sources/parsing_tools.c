@@ -41,10 +41,10 @@ int	check_int(char **arguments)
 	i = 0;
 	while (arguments[i])
 	{
-		if (ft_atoi(arguments[i]) > ft_atoi("2147483647"))
-			error_msg(2, "Error\n", 1);
-		if (ft_atoi(arguments[i]) < ft_atoi("-2147483648"))
-			error_msg(2, "Error\n", 1);
+		if (ft_atoi(arguments[i]) > 2147483647)
+			return (0);
+		if (ft_atoi(arguments[i]) < -2147483648)
+			return (0);
 		i++;
 	}
 	return (1);
@@ -59,17 +59,11 @@ int	nbr_only(char *args)
 	{
 		if ((args[i] > '9' || args[i] < '0')
 			&& args[i] != '+' && args[i] != ' ' && args[i] != '-')
-		{
-			error_msg(2, "Error\n", 1);
 			return (0);
-		}
 		if (args[i] == '-' || args[i] == '+')
 		{
 			if (args[i + 1] == '+' || args[i + 1] == '-' || args[i + 2] == '\0')
-			{
-				error_msg(2, "Error\n", 1);
 				return (0);
-			}
 		}
 		i++;
 	}

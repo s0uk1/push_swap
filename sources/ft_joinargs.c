@@ -24,6 +24,8 @@ int	ft_strlen(char *str)
 	return (i);
 }
 
+int i = 0;
+
 char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*str;
@@ -41,7 +43,7 @@ char	*ft_strjoin(char *s1, char *s2)
 		return (NULL);
 	str = malloc(ft_strlen(s1) + ft_strlen(s2) + 2);
 	if (!str)
-		exit(1);
+		return (free(s1), exit(0), NULL);
 	i = -1;
 	j = 0;
 	while (s1[++i])
