@@ -52,7 +52,7 @@ long	ft_atoi(const char *str)
 		i++;
 	}
 	if (!str[i])
-		error_msg(2, "Error\n", 1);
+		err_msg();
 	else if (str[i] == '+')
 		i++;
 	while (str[i] != '\0' && str[i] >= '0' && str[i] <= '9')

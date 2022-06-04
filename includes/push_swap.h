@@ -6,7 +6,7 @@
 /*   By: ssabbaji <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 14:27:05 by ssabbaji          #+#    #+#             */
-/*   Updated: 2022/05/23 16:01:52 by ssabbaji         ###   ########.fr       */
+/*   Updated: 2022/05/28 13:18:53 by ssabbaji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,13 @@ typedef struct s_stack{
 	struct s_stack	*next;
 }	t_stack;
 
-// fetching stack addresses 
+// fetching stack addresses and main funcs
 
 t_stack	**get_address(int c);
 t_stack	**fetch_address(t_stack **a, t_stack **b, int c);
-int		free_everything(int XD);
-
+int		freeall(int XD);
+void	free_av(char **arguments);
+void	first_check(int argc, char **av);
 // finding indexes 
 
 void	indexate(t_stack **a);
@@ -47,7 +48,7 @@ void	sort_two(t_stack **a);
 
 // parsing tools
 
-void	error_msg(int fd, char *msg, int err_code);
+void	err_msg(void);
 int		check_num(char *str);
 int		ft_isdigit(int c);
 int		nbr_only(char *args);
@@ -55,7 +56,7 @@ int		check_int(char **arguments);
 int		is_sorted(t_stack *stack_a);
 // stack to linked list
 
-int	ft_fill_list(char **av, t_stack **a);
+int		ft_fill_list(char **av, t_stack **a);
 int		new_node(t_stack **stack, int val);
 
 // dunno what to name these even
@@ -77,7 +78,7 @@ void	ra_done(t_stack **head);
 void	rrb_done(t_stack **head);
 void	rb(int flag);
 void	ra(int flag);
-void	rr(void);
+void	rr(int flag);
 void	rrb(int flag);
 void	rra(int flag);
 
@@ -87,7 +88,7 @@ void	pa_done(t_stack **st_a, t_stack **st_b);
 void	pb_done(t_stack **st_a, t_stack **st_b);
 void	pa(int flag);
 void	pb(int flag);
-void	rrr(void);
+void	rrr(int flag);
 
 // linked list manipulation 
 

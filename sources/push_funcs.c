@@ -12,9 +12,10 @@
 
 #include "../includes/push_swap.h"
 
-void	rrr(void)
+void	rrr(int flag)
 {
-	ft_putstr("rrr\n");
+	if (flag)
+		ft_putstr("rrr\n");
 	rra(0);
 	rrb(0);
 }

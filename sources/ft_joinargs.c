@@ -6,7 +6,7 @@
 /*   By: ssabbaji <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 17:03:21 by ssabbaji          #+#    #+#             */
-/*   Updated: 2022/05/22 13:55:41 by ssabbaji         ###   ########.fr       */
+/*   Updated: 2022/05/25 15:38:54 by ssabbaji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ int	ft_strlen(char *str)
 		i++;
 	return (i);
 }
-
-int i = 0;
 
 char	*ft_strjoin(char *s1, char *s2)
 {

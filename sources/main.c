@@ -6,12 +6,12 @@
 /*   By: ssabbaji <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 15:03:14 by ssabbaji          #+#    #+#             */
-/*   Updated: 2022/05/24 17:49:29 by ssabbaji         ###   ########.fr       */
+/*   Updated: 2022/05/28 14:34:19 by ssabbaji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
-#include <string.h>
+
 void	main_sort(t_stack **a)
 {
 	if (stack_size(*a) < 3)
@@ -32,68 +32,56 @@ void	main_sort(t_stack **a)
 	}
 }
 
-int	gen_splitstr(int argc, char **argv, char **split_str)
+void	free_av(char **arguments)
 {
-	*split_str = ft_join_args(argv, argc);
-	if (!nbr_only(*split_str))
-		return (0);
-	return (1);
+	int	i;
+
+	i = 0;
+	while (arguments[i])
+	{
+		free(arguments[i]);
+		i++;
+	}
+	free(arguments);
+}
+
+void	first_check(int argc, char **av)
+{
+	int	i;
+
+	i = 0;
+	if (argc < 2)
+		exit(1);
+	while (i++ < argc - 1)
+		if (av[i][0] == '\0')
+			err_msg();
 }
 
 int	main(int argc, char **argv)
 {
-	int		i;
 	t_stack	*a;
 	t_stack	*b;
+	char	**arguments;
 	char	*split_str;
-	char	**p;
-	
-	i = 0;
+
 	a = NULL;
 	b = NULL;
 	fetch_address(&a, &b, 34234);
-	if (argc < 2)
-		exit(1);
-	while (i++ < argc - 1)
-		if (argv[i][0] == '\0')
-			error_msg(2, "Error\n", 1);
-	if (!gen_splitstr(argc, argv, &split_str))
-		return (free(split_str), error_msg(2, "Error\n", 1), 0);
-	argv = ft_split(split_str, ' ');
-	p = argv;
-	if (!check_int(argv))
-	{
-		while (*argv)
-			free(*argv++);
-		free(p);
-		return (free(split_str), error_msg(2, "Error\n", 1), 0);
-	}
+	first_check(argc, argv);
+	split_str = ft_join_args(argv, argc);
+	if (!nbr_only(split_str))
+		return (free(split_str), err_msg(), 0);
+	arguments = ft_split(split_str, ' ');
 	free(split_str);
-	if (!ft_fill_list(argv, &a))
+	if (!ft_fill_list(arguments, &a) || !check_int(argv))
 	{
-		while (*argv)
-			free(*argv++);
-		return (free(p), free_everything(69), error_msg(2, "Error\n", 1), 0);
+		free_av(arguments);
+		freeall(69);
+		return (err_msg(), 0);
 	}
-	if (!a)
-	{
-		while (*argv)
-			free(*argv++);
-		free(p);
-		return(0);
-	}
-	indexate(&a);
+	free_av(arguments);
 	if (is_sorted(a))
-	{
-		while (*argv)
-			free(*argv++);
-		free(p);
-		free_everything(69);
-		return (0);
-	}
+		return (freeall(69), 0);
 	main_sort(&a);
-	while (*argv)
-		free(*argv++);
-	free(p);
-	free_everything(69);
+	freeall(69);
 }

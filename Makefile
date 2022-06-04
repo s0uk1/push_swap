@@ -6,7 +6,7 @@
 #    By: ssabbaji <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/21 18:04:43 by ssabbaji          #+#    #+#              #
-#    Updated: 2022/05/23 13:11:45 by ssabbaji         ###   ########.fr        #
+#    Updated: 2022/05/28 13:28:35 by ssabbaji         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,8 @@ SOURCES_LIST = main.c additional_tools.c\
 			   swap_funcs.c
 
 SRC_BONUS_LIST = checker_bonus.c \
-				additional_tools.c\
+				 checker_tools_bonus.c\
+				 additional_tools.c\
 				 finding_indexes.c\
 				 list_manip.c\
 				 sort_more.c\

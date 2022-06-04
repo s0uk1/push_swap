@@ -6,7 +6,7 @@
 /*   By: ssabbaji <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 17:25:35 by ssabbaji          #+#    #+#             */
-/*   Updated: 2022/05/23 16:08:04 by ssabbaji         ###   ########.fr       */
+/*   Updated: 2022/05/28 14:34:47 by ssabbaji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ static int	exec(char *operation)
 	else if (!ft_strcmp(operation, "rb\n"))
 		rb(0);
 	else if (!ft_strcmp(operation, "rr\n"))
-		rr();
+		rr(0);
 	else if (!ft_strcmp(operation, "rra\n"))
 		rra(0);
 	else if (!ft_strcmp(operation, "rrb\n"))
 		rrb(0);
 	else if (!ft_strcmp(operation, "rrr\n"))
-		rrr();
+		rrr(0);
 	else
 		return (0);
 	return (1);
@@ -51,7 +51,7 @@ static void	check(t_stack *a)
 		lel = get_next_line();
 		if (lel)
 			if (!exec(lel))
-				error_msg(2, "Error\n", 1);
+				err_msg();
 	}
 	if (is_sorted(a) && !*get_address('b'))
 		write(1, "OK", 2);
@@ -70,17 +70,16 @@ int	main(int argc, char **argv)
 	a = NULL;
 	b = NULL;
 	fetch_address(&a, &b, 34234);
-	if (argc < 2)
-		exit(1);
-	while (i++ < argc - 1)
-		if (argv[i][0] == '\0')
-			error_msg(2, "Error\n", 1);
+	first_check(argc, argv);
 	split_str = ft_join_args(argv, argc);
 	if (!nbr_only(split_str))
 		return (0);
 	argv = ft_split(split_str, ' ');
 	free(split_str);
-	a = ft_fill_list(argv);
+	ft_fill_list(argv, &a);
+	free_av(argv);
+	if (is_sorted(a))
+		return (freeall(69), 0);
 	check(a);
-	return (0);
+	freeall(69);
 }

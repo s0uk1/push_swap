@@ -74,9 +74,10 @@ void	ra(int flag)
 	ra_done(st);
 }
 
-void	rr(void)
+void	rr(int flag)
 {
-	ft_putstr("rr\n");
+	if (flag)
+		ft_putstr("rr\n");
 	ra(0);
 	rb(0);
 }

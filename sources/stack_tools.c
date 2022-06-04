@@ -6,13 +6,13 @@
 /*   By: ssabbaji <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 16:10:38 by ssabbaji          #+#    #+#             */
-/*   Updated: 2022/05/24 17:34:48 by ssabbaji         ###   ########.fr       */
+/*   Updated: 2022/05/27 13:55:53 by ssabbaji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-int	free_everything(int XD)
+int	freeall(int XD)
 {
 	t_stack	*stack;
 	t_stack	*tmp;
@@ -34,14 +34,32 @@ int	free_everything(int XD)
 	return (XD);
 }
 
+void	loop_last(t_stack **tmp, t_stack **new)
+{
+	while ((*tmp)->next)
+		*tmp = (*tmp)->next;
+	(*tmp)->next = *new;
+}
+
+int	check_dup(t_stack *iter, int val, int *fail)
+{
+	while (iter)
+	{
+		if (iter->val == val)
+			*fail = 1;
+		iter = iter->next;
+	}
+	return (*fail);
+}
 
 int	new_node(t_stack **stack, int val)
 {
+	int		fail;
 	t_stack	*new;
 	t_stack	*tmp;
 	t_stack	*iter;
-	int fail = 0;
 
+	fail = 0;
 	new = (t_stack *)malloc(sizeof(t_stack));
 	if (!new)
 		return (0);
@@ -54,12 +72,7 @@ int	new_node(t_stack **stack, int val)
 	}
 	tmp = *stack;
 	iter = tmp;
-	while (iter)
-	{
-		if (iter->val == val)
-			fail = 1;
-		iter = iter->next;
-	}
+	fail = check_dup(iter, val, &fail);
 	while (tmp->next)
 		tmp = tmp->next;
 	tmp->next = new;

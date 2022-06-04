@@ -6,7 +6,7 @@
 /*   By: ssabbaji <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 16:44:38 by ssabbaji          #+#    #+#             */
-/*   Updated: 2022/05/22 14:55:43 by ssabbaji         ###   ########.fr       */
+/*   Updated: 2022/05/27 13:53:31 by ssabbaji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ int	is_sorted(t_stack *stack_a)
 	return (1);
 }
 
-void	error_msg(int fd, char *msg, int err_code)
+void	err_msg(void)
 {
-	write(fd, msg, ft_strlen(msg));
-	exit(err_code);
+	write(2, "Error\n", 6);
+	exit(1);
 }
 
 int	check_int(char **arguments)
